@@ -1,6 +1,6 @@
 // Structural model
 module four_bit_adder(sum, carry_out, a, b, carry_in);
-    //Syntax: // Array of 64 registers containing 4 bits each
+    //Syntax: Array of 64 registers containing 4 bits each
     //    reg [0:3]     abc      [0:63] ;
     //    reg bits/reg  reg_name no_of_reg;
     input [0:3] a,b;
@@ -25,18 +25,24 @@ module single_bit_adder(sum, carry_out, a, b, carry_in);
     carry          c1 (carry_out, a, b, carry_in);
 endmodule
 
-// Behavioural model
+// Structural model
 module half_adder_sum (sum, a, b, carry_in);
     input a,b, carry_in;
     output sum;
+    wire t;
     // sum = a xor b xor carry_in
-    assign sum = a ^ b ^ carry_in;
+    xor x1 (t,  a,b);
+    xor x2 (sum,t,carry_in);
 endmodule
 
-// Behavioural model
+// Structural model
 module carry (carry_out, a, b, carry_in);
     input a,b,carry_in;
     output carry_out;
+    wire t1, t2, t3;
     // Carry = AB + BC + CA
-    assign carry_out = (a & b) | (b & carry_in) | (carry_in & a);
+    and a1 (t1, a, b);
+    and a2 (t2, b, carry_in);
+    and a3 (t3, a, carry_in);
+    or  a4 (carry_out, t1, t2, t3);
 endmodule
