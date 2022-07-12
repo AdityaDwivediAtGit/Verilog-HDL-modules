@@ -1,5 +1,5 @@
 module Two_to_One_Mux(Out, Select_Line, I);
-    input [1:0] I;
+    input [0:1] I;
     input Select_Line;
     output reg Out;
 
